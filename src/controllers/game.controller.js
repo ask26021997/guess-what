@@ -17,7 +17,6 @@ exports.guess = async (req, res) => {
     }
 
     const { first, second, third, fourth, fivth } = req.body;
-
     const updates = {};
     updates.lastGuess = (first + second + third + fourth + fivth).toUpperCase();
     updates.attemptCount = game.attemptCount + 1;

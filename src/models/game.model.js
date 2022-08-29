@@ -28,16 +28,18 @@ const gameSchema = new mongoose.Schema({
     type: String,
     default: "IN-PROGRESS",
     required: true,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+    required: true
+  },
+  updatedAt: {
+    type: Date,
+    default: Date.now,
+    required: true
   }
 });
 
-gameSchema.toJSON = function() {
-  return {
-    lastGuess:this.lastGuess,
-    attemptCount: this.attemptCount,
-    won:this.won,
-    status:this.status
-  }
-}
 
 module.exports = mongoose.model("Game", gameSchema);

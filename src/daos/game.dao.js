@@ -17,6 +17,7 @@ exports.findGameByPk = async (id) => {
 };
 
 exports.findGameByStatus = async (playerName, playerEmail) => {
+
   const options = {
     playerName: playerName,
     playerEmail: playerEmail,
