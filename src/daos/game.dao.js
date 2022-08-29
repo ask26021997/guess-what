@@ -1,13 +1,13 @@
 const mongoose = require("mongoose");
 const Game = require("../models/game.model");
 
-const {getWordToGuess} = require("../utils")
+const {getWordToGuess, playerNameDecorator} = require("../utils")
 exports.create = async (playerName, playerEmail) => {
   let wordToGuess = getWordToGuess();
   const game = new Game({
     correctWord: wordToGuess.toUpperCase(),
-    playerName: playerName,
-    playerEmail: playerEmail
+    playerName: playerNameDecorator(playerName),
+    playerEmail: playerEmail.toLowerCase()
   });
   return await Game.create(game);
 };
@@ -19,8 +19,8 @@ exports.findGameByPk = async (id) => {
 exports.findGameByStatus = async (playerName, playerEmail) => {
 
   const options = {
-    playerName: playerName,
-    playerEmail: playerEmail,
+    playerName: playerNameDecorator(playerName),
+    playerEmail: playerEmail.toLowerCase(),
     status: "IN-PROGRESS"
   }
   return await Game.findOne(options);
