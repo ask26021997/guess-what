@@ -55,12 +55,15 @@ exports.guess = async (req, res) => {
 exports.findInProgressGame = async (req, res) => {
   try {
     const game = await GameDAO.findGameByStatus();
+    
     if (game) {
-      game.color0 = colorMap(game.correctWord, game.lastGuess, 0);
-      game.color1 = colorMap(game.correctWord, game.lastGuess, 1);
-      game.color2 = colorMap(game.correctWord, game.lastGuess, 2);
-      game.color3 = colorMap(game.correctWord, game.lastGuess, 3);
-      game.color4 = colorMap(game.correctWord, game.lastGuess, 4);
+      if(game.lastGuess) {
+        game.color0 = colorMap(game.correctWord, game.lastGuess, 0);
+        game.color1 = colorMap(game.correctWord, game.lastGuess, 1);
+        game.color2 = colorMap(game.correctWord, game.lastGuess, 2);
+        game.color3 = colorMap(game.correctWord, game.lastGuess, 3);
+        game.color4 = colorMap(game.correctWord, game.lastGuess, 4);
+      }
       res.render("games/playground", { game: game });
     } else {
       const newGame = await GameDAO.create();
