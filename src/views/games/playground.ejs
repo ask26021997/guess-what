@@ -1,0 +1,57 @@
+
+<div class="row">
+  <div class="col-sm-12">
+    <div class="card text-bg-dark">
+      <div class="card-body ">
+        Remaining Attempts: <%= 6 - game.attemptCount %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<form action="/games/<%= game._id %>" method="post">
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="<%= game?.color0 ? game?.color0 : 'card text-bg-dark' %>">
+        <div class="card-body ">
+          <input type="text" class="form-control" id="first" name="first" required value="<%= game.lastGuess ? game.lastGuess[0] : null %>">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="<%= game?.color1 ? game?.color1 : 'card text-bg-dark' %>">
+        <div class="card-body">
+          <input type="text" class="form-control" id="second" name="second" required value="<%= game.lastGuess ? game.lastGuess[1] : null %>">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="<%= game?.color2 ? game?.color2 : 'card text-bg-dark' %>">
+        <div class="card-body ">
+          <input type="text" class="form-control" id="third" name="third" required value="<%= game.lastGuess ? game.lastGuess[2] : null %>">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="<%= game?.color3 ? game?.color3 : 'card text-bg-dark' %>">
+        <div class="card-body">
+          <input type="text" class="form-control" id="fourth" name="fourth" required value="<%= game.lastGuess ? game.lastGuess[3] : null %>">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="<%= game?.color4 ? game?.color4 : 'card text-bg-dark' %>">
+        <div class="card-body">
+          <input type="text" class="form-control" id="fivth" name="fivth" required value="<%= game.lastGuess ? game.lastGuess[4] : null %>">
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-2">
+      <div class="card text-bg-dark">
+        <div class="card-body">
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
