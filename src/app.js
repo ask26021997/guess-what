@@ -1,10 +1,12 @@
 const express = require("express");
 const expressLayouts = require("express-ejs-layouts");
 const bodyParser = require("body-parser");
-const morgan = require("morgan");
 
 const app = express();
-if(morgan) app.use(morgan('tiny'));
+if (process.env.NODE_ENV !== "production") {
+  const morgan = require("morgan");
+  app.use(morgan('tiny'));
+}
 
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
