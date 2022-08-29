@@ -1,9 +1,14 @@
 const mongoose = require("mongoose");
 
 const gameSchema = new mongoose.Schema({
-  // user:{
-
-  // },
+  playerName: {
+    type: String,
+    required: true
+  },
+  playerEmail: {
+    type: String,
+    required: true
+  },
   correctWord: {
     type: String,
     required: true

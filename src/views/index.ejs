@@ -4,10 +4,32 @@
     Guess What? is a game for Guessing words where you will get SIX chances to guess the word of length 5 and you will get hints if you are close to the correct word or not. Play and win.
   </p>
   <p class="lead">
-    <a
-      href="/games"
-      class="btn btn-lg btn-secondary fw-bold border-white bg-white"
-      >Play Now</a
-    >
+    <form action="/games" method="post">
+      <div class="row">
+        <div class="col-sm-5">
+          <div class="card text-bg-dark">
+            <div class="card-body ">
+              <input type="text" placeholder="name" class="form-control" id="playerName" name="playerName" required >
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-5">
+          <div class="card text-bg-dark">
+            <div class="card-body ">
+              <input type="email" placeholder="email" class="form-control" id="playerEmail" name="playerEmail" required >
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-2">
+          <div class="card text-bg-dark">
+            <div class="card-body">
+              <button type="submit" class="btn btn-md btn-secondary fw-bold border-white bg-white">Play</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+    
   </p>
 </main>

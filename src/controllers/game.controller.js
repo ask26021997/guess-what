@@ -7,18 +7,14 @@ exports.guess = async (req, res) => {
   try {
     const { id } = req.params;
     const game = await GameDAO.findGameByPk(id);
-    if (!game)
-      return res.status(404).send({
-        message: "No Game Found",
-      });
-    if (game.attemptCount >= 6)
-      return res.status(400).send({
-        message: "Game Ended",
-      });
-    if (game.won)
-      return res.status(400).send({
-        message: "Game Ended",
-      });
+    if (!game){
+      res.render("games/previous",{message:"No Such Game Found"});
+      return;
+    }
+    if (game.attemptCount >= 6 || game.won) {
+      res.render("games/previous",{message:"Game Already finished"});
+      return;      
+    }
 
     const { first, second, third, fourth, fivth } = req.body;
 
@@ -44,6 +40,8 @@ exports.guess = async (req, res) => {
     updates.color3 = colorMap(game.correctWord, updates.lastGuess, 3);
     updates.color4 = colorMap(game.correctWord, updates.lastGuess, 4);
     updates._id = game._id;
+    updates.playerName = game.playerName
+    updates.playerEmail = game.playerEmail
     res.render("games/playground", { game: updates });
   } catch (err) {
     res.render("error", {
@@ -53,8 +51,9 @@ exports.guess = async (req, res) => {
 };
 
 exports.findInProgressGame = async (req, res) => {
+  const {playerName, playerEmail} = req.body;
   try {
-    const game = await GameDAO.findGameByStatus();
+    const game = await GameDAO.findGameByStatus(playerName, playerEmail);
     
     if (game) {
       if(game.lastGuess) {
@@ -66,7 +65,7 @@ exports.findInProgressGame = async (req, res) => {
       }
       res.render("games/playground", { game: game });
     } else {
-      const newGame = await GameDAO.create();
+      const newGame = await GameDAO.create(playerName, playerEmail);
       if (newGame) {
         res.render("games/playground", { game: newGame });
       } else {
